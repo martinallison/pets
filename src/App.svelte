@@ -2,6 +2,7 @@
   import { Route, Router } from "svelte-navigator";
   import { user } from "./auth";
   import SignIn from "./SignIn.svelte";
+  import CreatePet from "./CreatePet.svelte";
   import Pet from "./Pet.svelte";
   import Pets from "./Pets.svelte";
 </script>
@@ -16,6 +17,9 @@
       </Route>
       <Route path="/:petId" let:params>
         <Pet id={params.petId} />
+      </Route>
+      <Route path="/add-pet">
+        <CreatePet />
       </Route>
     </Router>
   {:else}

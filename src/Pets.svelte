@@ -12,6 +12,9 @@
 </script>
 
 <div>
+  <h2>Your pets</h2>
+  <a href="/add-pet" use:link>Add a pet</a>
+
   <ul>
     {#each $pets as pet}
       <li><a href="/{pet.id}" use:link>{pet.name}</a></li>

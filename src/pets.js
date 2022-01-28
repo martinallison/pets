@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { collection, doc, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, query, where } from "firebase/firestore";
 
 export const getPets = (userId) => {
   const petsRef = collection(db, "pets");
@@ -8,4 +8,9 @@ export const getPets = (userId) => {
 
 export const getPet = (id) => {
   return doc(db, "pets", id);
+};
+
+export const createPet = (name, userId) => {
+  const petsRef = collection(db, "pets");
+  return addDoc(petsRef, { name, type: "DOG", owner_id: userId });
 };
