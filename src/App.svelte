@@ -1,24 +1,25 @@
 <script>
-  import { auth, signIn, signOut } from "./firebase";
-  import { authState } from "rxfire/auth";
-
-  let user;
-  let displayName;
-
-  authState(auth).subscribe((u) => (user = u));
-
-  $: displayName = user ? user.displayName.split(" ")[0] : "";
+  import { Route, Router } from "svelte-navigator";
+  import { user } from "./auth";
+  import SignIn from "./SignIn.svelte";
+  import Pet from "./Pet.svelte";
+  import Pets from "./Pets.svelte";
 </script>
 
 <main>
   <h1>Pets</h1>
-  <p>Track pet stuff.</p>
 
-  {#if user}
-    <p>Welcome {displayName}</p>
-    <button on:click={signOut}>Sign out</button>
+  {#if $user}
+    <Router>
+      <Route path="/">
+        <Pets userId={$user.uid} />
+      </Route>
+      <Route path="/:petId" let:params>
+        <Pet id={params.petId} />
+      </Route>
+    </Router>
   {:else}
-    <button on:click={signIn}>Sign in/up with G</button>
+    <SignIn />
   {/if}
 </main>
 
