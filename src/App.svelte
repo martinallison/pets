@@ -7,7 +7,7 @@
 </script>
 
 <main>
-  <h1>Pets</h1>
+  <h1>Pawgress</h1>
 
   {#if $user}
     <Router>
