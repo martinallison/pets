@@ -1,16 +1,16 @@
 <script>
-  import { Route, Router } from "svelte-navigator";
+  import { link, Route, Router } from "svelte-navigator";
   import { user } from "./auth";
   import CreatePet from "./CreatePet.svelte";
   import Pet from "./Pet.svelte";
   import Pets from "./Pets.svelte";
-  import SignIn from "./SignIn.svelte";
+  import Splash from "./Splash.svelte";
 </script>
 
-<main>
-  <h1>Pawgress</h1>
+{#if $user}
+  <main>
+    <p class="header"><a href="/" use:link class="plain-link">Doglog</a></p>
 
-  {#if $user}
     <Router>
       <Route path="/">
         <Pets userId={$user.uid} />
@@ -22,21 +22,21 @@
         <CreatePet />
       </Route>
     </Router>
-  {:else}
-    <SignIn />
-  {/if}
-</main>
+  </main>
+{:else}
+  <Splash />
+{/if}
 
 <style>
   main {
     padding: 1em;
-    max-width: 240px;
+    max-width: none;
     margin: 0 auto;
   }
 
   @media (min-width: 640px) {
     main {
-      max-width: none;
+      max-width: 68%;
     }
   }
 </style>
