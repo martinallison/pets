@@ -12,7 +12,7 @@ export const getPet = (id) => docData(petRef(id), { idField: "id" });
 
 export const createPet = (name, userId) => {
   const petsRef = collection(db, "pets");
-  return addDoc(petsRef, { name, type: "DOG", owner_id: userId });
+  return docData(addDoc(petsRef, { name, type: "DOG", owner_id: userId }));
 };
 
 const petQuery = (userId) => {
