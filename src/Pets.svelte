@@ -1,23 +1,27 @@
 <script>
-  import { collectionData } from "rxfire/firestore";
-  import { startWith } from "rxjs/operators";
   import { link } from "svelte-navigator";
   import { getPets } from "./pets";
 
   export let userId;
 
-  const pets = collectionData(getPets(userId), { idField: "id" }).pipe(
-    startWith([])
-  );
+  $: pets = getPets(userId);
 </script>
 
 <div>
-  <h2>Your pets</h2>
-  <a href="/add-pet" use:link>Add a pet</a>
+  <div class="main-header flex">
+    <h1>Your pets</h1>
+    <a href="/add-pet" class="btn btn-primary" use:link>Add a pet +</a>
+  </div>
 
-  <ul>
-    {#each $pets as pet}
-      <li><a href="/{pet.id}" use:link>{pet.name}</a></li>
-    {/each}
-  </ul>
+  <div class="section">
+    <ul class="plain-list">
+      {#each $pets as pet}
+        <li class="plain-list-item">
+          <a href="/{pet.id}" class="panel plain-link" use:link
+            >{pet.emoji} {pet.name}</a
+          >
+        </li>
+      {/each}
+    </ul>
+  </div>
 </div>

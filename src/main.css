@@ -1,0 +1,139 @@
+.btn.mint {
+	background: var(--mint4);
+	color: var(--mint11);
+}
+
+.btn.mint:hover {
+	background: var(--mint5);
+}
+
+.btn.mint:active {
+	background: var(--mint6);
+}
+
+.btn.orange {
+  background: var(--orange4);
+  color: var(--orange11);
+}
+
+.btn.orange:hover {
+  background: var(--orange5);
+}
+
+.btn.orange:active {
+  background: var(--orange6);
+}
+
+.btn.purple {
+  background: var(--purple4);
+  color: var(--purple11);
+}
+
+.btn.purple:hover {
+  background: var(--purple5);
+}
+
+.btn.purple:active {
+  background: var(--purple6);
+}
+
+.btn.mauve {
+  background: var(--mauve4);
+  color: var(--mauve11);
+}
+
+.btn.mauve:hover {
+  background: var(--mauve5);
+}
+
+.btn.mauve:active {
+  background: var(--mauve6);
+}
+
+.btn.sky {
+  background: var(--sky4);
+  color: var(--sky11);
+}
+
+.btn.sky:hover {
+  background: var(--sky5);
+}
+
+.btn.sky:active {
+  background: var(--sky6);
+}
+
+.btn.yellow {
+  background: var(--yellow4);
+  color: var(--yellow11);
+}
+
+.btn.yellow:hover {
+  background: var(--yellow5);
+}
+
+.btn.yellow:active {
+  background: var(--yellow6);
+}
+
+.btn.crimson {
+  background: var(--crimson4);
+  color: var(--crimson11);
+}
+
+.btn.crimson:hover {
+  background: var(--crimson5);
+}
+
+.btn.crimson:active {
+  background: var(--crimson6);
+}
+
+.btn.grass {
+  background: var(--grass4);
+  color: var(--grass11);
+}
+
+.btn.grass:hover {
+  background: var(--grass5);
+}
+
+.btn.grass:active {
+  background: var(--grass6);
+}
+
+.plain-list {
+  padding: 0;
+}
+
+.plain-list-item {
+  list-style: none;
+}
+
+.panel {
+  display: block;
+  border-radius: 5px;
+  padding: 0.9375rem;
+  background-color: #fff;
+  margin-top: 0.625rem;
+}
+
+.panel:hover {
+  background: var(--mauve3);
+}
+
+.plain-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.plain-link:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main-header h1 {
+  margin: 0;
+  margin-top: 1.875rem;
+  margin-bottom: 2.5rem;
+}

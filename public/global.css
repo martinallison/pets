@@ -1,62 +1,99 @@
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;800&display=swap");
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
 }
 
 body {
-	color: #333;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Roboto, -apple-system, BlinkMacSystemFont, sans-serif
+  background: radial-gradient(
+    92.66% 92.66% at 5.56% 2.5%,
+    rgba(249, 216, 231, 0.2) 0%,
+    rgba(206, 231, 254, 0.2) 100%
+  );
+  color: #4b3535;
+  margin: 0;
+  padding: 0;
+  font-family: Manrope, Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.125rem;
+}
+
+h1 {
+	font-size: 2.25rem;
 }
 
 a {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 a:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 a:visited {
-	color: rgb(0,80,160);
+  color: rgb(0, 80, 160);
 }
 
 label {
-	display: block;
+  display: block;
 }
 
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+input,
+button,
+select,
+textarea {
+	border: none;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 5px;
+  padding: 0.4375rem 1.33rem;
 }
 
 input:disabled {
-	color: #ccc;
+  color: #ccc;
 }
 
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+a.btn {
+	color: #e8e8e8;
+	text-decoration: none;
 }
 
-button:disabled {
-	color: #999;
+.btn {
+	cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 0.4375rem 1.33rem;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+.btn-primary {
+  background: #242424;
+  color: #e8e8e8;
 }
 
-button:focus {
-	border-color: #666;
+.btn-primary:disabled {
+	color: #666;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.flex-inline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.section {
+  margin-top: 2.5rem;
 }
