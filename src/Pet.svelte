@@ -1,7 +1,7 @@
 <script>
   import { writable } from "svelte/store";
   import { createEvent, getEvents } from "./events";
-  import { getPet, petRef } from "./pets";
+  import { getPet } from "./pets";
 
   export let id;
 
@@ -15,9 +15,6 @@
     { label: "😴 sleep", type: "SLEEPING" },
     { label: "🍔 eat", type: "EATING" },
   ];
-  let recordEvent = (type) => {
-    createEvent(petRef(id), type);
-  };
 </script>
 
 {#if $pet}
@@ -26,7 +23,7 @@
   <p>Record something</p>
 
   {#each possibleEvents as possibleEvent}
-    <button on:click={() => recordEvent(possibleEvent.type)}
+    <button on:click={() => createEvent(id, possibleEvent.type)}
       >{possibleEvent.label}</button
     >
   {/each}

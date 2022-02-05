@@ -1,14 +1,16 @@
 import { addDoc, collection, orderBy, query, where } from "firebase/firestore";
-import { collectionData } from "rxfire/firestore";
+import { collectionData, docData } from "rxfire/firestore";
 import { db } from "./firebase";
 import { petRef } from "./pets";
 
 export const getEvents = (petId) => collectionData(eventQuery(petRef(petId)));
 
-export const createEvent = (petRef, type) => {
+export const createEvent = (petId, type) => {
   const now = new Date();
   const eventsRef = collection(db, "events");
-  addDoc(eventsRef, { occurred_at: now, pet_ref: petRef, type });
+  docData(
+    addDoc(eventsRef, { occurred_at: now, pet_ref: petRef(petId), type })
+  );
 };
 
 const eventQuery = (petRef) => {
