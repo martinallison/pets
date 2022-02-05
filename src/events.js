@@ -1,7 +1,17 @@
 import { addDoc, collection, orderBy, query, where } from "firebase/firestore";
+import { collectionData } from "rxfire/firestore";
 import { db } from "./firebase";
+import { petRef } from "./pets";
 
-export const getEvents = (petRef) => {
+export const getEvents = (petId) => collectionData(eventQuery(petRef(petId)));
+
+export const createEvent = (petRef, type) => {
+  const now = new Date();
+  const eventsRef = collection(db, "events");
+  addDoc(eventsRef, { occurred_at: now, pet_ref: petRef, type });
+};
+
+const eventQuery = (petRef) => {
   const thisMorning = new Date();
   thisMorning.setHours(0, 0, 0, 0);
 
@@ -16,10 +26,4 @@ export const getEvents = (petRef) => {
     where("occurred_at", "<=", tonight),
     orderBy("occurred_at", "desc")
   );
-};
-
-export const createEvent = (petRef, type) => {
-  const now = new Date();
-  const eventsRef = collection(db, "events");
-  addDoc(eventsRef, { occurred_at: now, pet_ref: petRef, type });
 };

@@ -1,5 +1,4 @@
 <script>
-  import { collectionData } from "rxfire/firestore";
   import { writable } from "svelte/store";
   import { createEvent, getEvents } from "./events";
   import { getPet, petRef } from "./pets";
@@ -7,7 +6,7 @@
   export let id;
 
   $: pet = getPet(id);
-  $: events = $pet ? collectionData(getEvents(petRef(id))) : writable([]);
+  $: events = $pet ? getEvents(id) : writable([]);
 
   let possibleEvents = [
     { label: "💩 poopies", type: "POOPING" },
