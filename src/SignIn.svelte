@@ -3,5 +3,5 @@
 </script>
 
 <main>
-  <button on:click={signIn}>Sign in w/ Google</button>
+  <button class="btn btn-primary" on:click={signIn}>Sign in w/ Google</button>
 </main>

@@ -1,55 +1,66 @@
 <script>
-  import { collectionData } from "rxfire/firestore";
-  import { docData } from "rxfire/firestore";
   import { writable } from "svelte/store";
-  import { createEvent, getEvents } from "./events";
+  import { EVENT_TYPES, createEvent, getEvents } from "./events";
   import { getPet } from "./pets";
+  import { formatTimestamp } from "./utils";
+
+  const BUTTON_COLOURS = {
+    AWAKE: "purple",
+    POOPING: "orange",
+    PEEING: "yellow",
+    WALKING: "sky",
+    PLAYING: "grass",
+    EATING: "mint",
+    SLEEPING: "mauve",
+    VET_VISIT: "crimson",
+  };
 
   export let id;
+  let pet;
+  let events;
 
-  let petRef = getPet(id);
-  let pet = docData(petRef, { idField: "id" });
-
-  $: events = $pet ? collectionData(getEvents(petRef)) : writable([]);
-
-  let possibleEvents = [
-    { label: "💩 poopies", type: "POOPING" },
-    { label: "💦 pee", type: "PEEING" },
-    { label: "👀 awake", type: "AWAKE" },
-    { label: "😴 sleep", type: "SLEEPING" },
-    { label: "🍔 eat", type: "EATING" },
-  ];
-  let recordEvent = (type) => {
-    createEvent(petRef, type);
-  };
+  $: pet = getPet(id);
+  $: events = $pet ? getEvents(id) : writable([]);
 </script>
 
 {#if $pet}
-  <h2>{$pet.name}</h2>
+  <div class="main-header">
+    <h1>{$pet.emoji} {$pet.name}</h1>
+  </div>
 
-  <p>Record something</p>
+  <section class="section">
+    <p>Record something</p>
 
-  {#each possibleEvents as possibleEvent}
-    <button on:click={() => recordEvent(possibleEvent.type)}
-      >{possibleEvent.label}</button
-    >
-  {/each}
-
-  {#if $events.length}
-    <p>What your {$pet.type.toLowerCase()}'s been doing today:</p>
-
-    <ul>
-      {#each $events as event}
-        <li>
-          {event.occurred_at
-            .toDate()
-            .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - {event.type}
-        </li>
+    <div class="flex-inline">
+      {#each Object.values(EVENT_TYPES) as event}
+        <button
+          class="btn {BUTTON_COLOURS[event.type]}"
+          on:click={() => createEvent(id, event.type)}
+          >{event.emoji} {event.label}</button
+        >
       {/each}
-    </ul>
-  {:else}
-    <p>No events today yet.</p>
-  {/if}
+    </div>
+  </section>
+
+  <section class="section">
+    {#if $events.length}
+      <p>What your {$pet.label.toLowerCase()}'s been doing today:</p>
+
+      <ul class="plain-list">
+        {#each $events as event}
+          <li class="plain-list-item panel">
+            {event.emoji}
+            {event.label}
+            {formatTimestamp(event.occurredAt)}
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p>No events today yet.</p>
+    {/if}
+  </section>
 {:else}
-  <p>Loading</p>
+  <section class="section">
+    <p>Loading</p>
+  </section>
 {/if}

@@ -1,4 +1,5 @@
 <script>
+  import { firstValueFrom } from "rxjs";
   import { useNavigate } from "svelte-navigator";
   import { user } from "./auth";
   import { createPet } from "./pets";
@@ -10,7 +11,14 @@
 
   const submit = async () => {
     submitting = true;
-    await createPet(name, $user.uid);
+
+    try {
+      await firstValueFrom(createPet(name, $user.uid));
+    } catch (e) {
+      submitting = false;
+      return;
+    }
+
     submitting = false;
     navigate("/");
   };
@@ -20,7 +28,7 @@
   <label for="name">Name</label>
   <input id="name" type="text" bind:value={name} />
 
-  <button type="submit"
-    >{#if submitting}Submitting{:else}Add pet{/if}</button
+  <button type="submit" class="btn btn-primary" disabled={submitting}
+    >Add pet</button
   >
 </form>
