@@ -20,6 +20,16 @@ export const EVENT_TYPES = {
     emoji: "💦",
     label: "Pee",
   },
+  WALKING: {
+    type: "WALKING",
+    emoji: "🗺",
+    label: "Walk",
+  },
+  PLAYING: {
+    type: "PLAYING",
+    emoji: "🎾",
+    label: "Play",
+  },
   EATING: {
     type: "EATING",
     emoji: "🍔",
@@ -29,6 +39,11 @@ export const EVENT_TYPES = {
     type: "SLEEPING",
     emoji: "😴",
     label: "Sleep",
+  },
+  VET_VISIT: {
+    type: "VET_VISIT",
+    emoji: "🏥",
+    label: "Vets",
   },
 };
 
