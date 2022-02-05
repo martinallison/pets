@@ -1,14 +1,11 @@
 <script>
-  import { collectionData } from "rxfire/firestore";
-  import { startWith } from "rxjs/operators";
   import { link } from "svelte-navigator";
   import { getPets } from "./pets";
 
   export let userId;
+  let pets;
 
-  const pets = collectionData(getPets(userId), { idField: "id" }).pipe(
-    startWith([])
-  );
+  $: pets = getPets(userId);
 </script>
 
 <div>
