@@ -1,5 +1,5 @@
-import { db } from "./firebase";
 import { addDoc, collection, doc, query, where } from "firebase/firestore";
+import { db } from "./firebase";
 
 export const getPets = (userId) => {
   const petsRef = collection(db, "pets");

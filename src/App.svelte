@@ -1,10 +1,10 @@
 <script>
   import { Route, Router } from "svelte-navigator";
   import { user } from "./auth";
-  import SignIn from "./SignIn.svelte";
   import CreatePet from "./CreatePet.svelte";
   import Pet from "./Pet.svelte";
   import Pets from "./Pets.svelte";
+  import SignIn from "./SignIn.svelte";
 </script>
 
 <main>

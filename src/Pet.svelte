@@ -1,6 +1,5 @@
 <script>
-  import { collectionData } from "rxfire/firestore";
-  import { docData } from "rxfire/firestore";
+  import { collectionData, docData } from "rxfire/firestore";
   import { writable } from "svelte/store";
   import { createEvent, getEvents } from "./events";
   import { getPet } from "./pets";

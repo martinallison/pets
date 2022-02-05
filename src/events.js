@@ -1,5 +1,5 @@
+import { addDoc, collection, orderBy, query, where } from "firebase/firestore";
 import { db } from "./firebase";
-import { collection, query, where, orderBy, addDoc } from "firebase/firestore";
 
 export const getEvents = (petRef) => {
   const thisMorning = new Date();
