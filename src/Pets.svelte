@@ -14,7 +14,7 @@
 
   <ul>
     {#each $pets as pet}
-      <li><a href="/{pet.id}" use:link>{pet.name}</a></li>
+      <li><a href="/{pet.id}" use:link>{pet.emoji} {pet.name}</a></li>
     {/each}
   </ul>
 </div>

@@ -22,7 +22,7 @@
 </script>
 
 {#if $pet}
-  <h2>{$pet.name}</h2>
+  <h2>{$pet.emoji} {$pet.name}</h2>
 
   <p>Record something</p>
 
@@ -33,7 +33,7 @@
   {/each}
 
   {#if $events.length}
-    <p>What your {$pet.type.toLowerCase()}'s been doing today:</p>
+    <p>What your {$pet.label.toLowerCase()}'s been doing today:</p>
 
     <ul>
       {#each $events as event}
