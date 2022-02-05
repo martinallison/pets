@@ -1,48 +1,35 @@
 <script>
-  import { collectionData, docData } from "rxfire/firestore";
   import { writable } from "svelte/store";
-  import { createEvent, getEvents } from "./events";
+  import { EVENT_TYPES, createEvent, getEvents } from "./events";
   import { getPet } from "./pets";
+  import { formatTimestamp } from "./utils";
 
   export let id;
 
-  let petRef = getPet(id);
-  let pet = docData(petRef, { idField: "id" });
-
-  $: events = $pet ? collectionData(getEvents(petRef)) : writable([]);
-
-  let possibleEvents = [
-    { label: "💩 poopies", type: "POOPING" },
-    { label: "💦 pee", type: "PEEING" },
-    { label: "👀 awake", type: "AWAKE" },
-    { label: "😴 sleep", type: "SLEEPING" },
-    { label: "🍔 eat", type: "EATING" },
-  ];
-  let recordEvent = (type) => {
-    createEvent(petRef, type);
-  };
+  $: pet = getPet(id);
+  $: events = $pet ? getEvents(id) : writable([]);
 </script>
 
 {#if $pet}
-  <h2>{$pet.name}</h2>
+  <h2>{$pet.emoji} {$pet.name}</h2>
 
   <p>Record something</p>
 
-  {#each possibleEvents as possibleEvent}
-    <button on:click={() => recordEvent(possibleEvent.type)}
-      >{possibleEvent.label}</button
+  {#each Object.values(EVENT_TYPES) as event}
+    <button on:click={() => createEvent(id, event.type)}
+      >{event.emoji} {event.label}</button
     >
   {/each}
 
   {#if $events.length}
-    <p>What your {$pet.type.toLowerCase()}'s been doing today:</p>
+    <p>What your {$pet.label.toLowerCase()}'s been doing today:</p>
 
     <ul>
       {#each $events as event}
         <li>
-          {event.occurred_at
-            .toDate()
-            .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - {event.type}
+          {event.emoji}
+          {event.label}
+          {formatTimestamp(event.occurredAt)}
         </li>
       {/each}
     </ul>
