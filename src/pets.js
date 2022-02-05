@@ -1,14 +1,14 @@
 import { addDoc, collection, doc, query, where } from "firebase/firestore";
-import { collectionData } from "rxfire/firestore";
+import { collectionData, docData } from "rxfire/firestore";
 import { startWith } from "rxjs/operators";
 import { db } from "./firebase";
+
+export const petRef = (id) => doc(db, `pets/${id}`);
 
 export const getPets = (userId) =>
   collectionData(petQuery(userId), { idField: "id" }).pipe(startWith([]));
 
-export const getPet = (id) => {
-  return doc(db, "pets", id);
-};
+export const getPet = (id) => docData(petRef(id), { idField: "id" });
 
 export const createPet = (name, userId) => {
   const petsRef = collection(db, "pets");

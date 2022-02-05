@@ -1,15 +1,13 @@
 <script>
-  import { collectionData, docData } from "rxfire/firestore";
+  import { collectionData } from "rxfire/firestore";
   import { writable } from "svelte/store";
   import { createEvent, getEvents } from "./events";
-  import { getPet } from "./pets";
+  import { getPet, petRef } from "./pets";
 
   export let id;
 
-  let petRef = getPet(id);
-  let pet = docData(petRef, { idField: "id" });
-
-  $: events = $pet ? collectionData(getEvents(petRef)) : writable([]);
+  $: pet = getPet(id);
+  $: events = $pet ? collectionData(getEvents(petRef(id))) : writable([]);
 
   let possibleEvents = [
     { label: "💩 poopies", type: "POOPING" },
@@ -19,7 +17,7 @@
     { label: "🍔 eat", type: "EATING" },
   ];
   let recordEvent = (type) => {
-    createEvent(petRef, type);
+    createEvent(petRef(id), type);
   };
 </script>
 
