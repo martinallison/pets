@@ -1,16 +1,48 @@
 import { addDoc, collection, orderBy, query, where } from "firebase/firestore";
 import { collectionData, docData } from "rxfire/firestore";
+import { map } from "rxjs/operators";
 import { db } from "./firebase";
 import { petRef } from "./pets";
 
-export const getEvents = (petId) => collectionData(eventQuery(petRef(petId)));
+export const EVENT_TYPES = {
+  AWAKE: {
+    type: "AWAKE",
+    emoji: "👀",
+    label: "Awake",
+  },
+  POOPING: {
+    type: "POOPING",
+    emoji: "💩",
+    label: "Poopies",
+  },
+  PEEING: {
+    type: "PEEING",
+    emoji: "💦",
+    label: "Pee",
+  },
+  EATING: {
+    type: "EATING",
+    emoji: "🍔",
+    label: "Eat",
+  },
+  SLEEPING: {
+    type: "SLEEPING",
+    emoji: "😴",
+    label: "Sleep",
+  },
+};
+
+export const getEvents = (petId) =>
+  collectionData(eventQuery(petRef(petId))).pipe(
+    map((events) => [...events].map(convert))
+  );
 
 export const createEvent = (petId, type) => {
   const now = new Date();
   const eventsRef = collection(db, "events");
   docData(
     addDoc(eventsRef, { occurred_at: now, pet_ref: petRef(petId), type })
-  );
+  ).pipe(map(convert));
 };
 
 const eventQuery = (petRef) => {
@@ -29,3 +61,8 @@ const eventQuery = (petRef) => {
     orderBy("occurred_at", "desc")
   );
 };
+
+const convert = (event) => ({
+  ...EVENT_TYPES[event.type],
+  occurredAt: event.occurred_at,
+});
